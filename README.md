@@ -1,0 +1,1 @@
+# firephp-for-firebug.next
