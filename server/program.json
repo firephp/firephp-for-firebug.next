@@ -1,0 +1,15 @@
+{
+	"name": "firephp-for-firebug.next-server",
+	"boot": {
+		"package": "./package.json"
+	},
+	"config": {
+		"github.com/pinf-to/pinf-to-docker/0": {
+			"template": "phpfpm-apache",
+			"docker": {
+				"username": "cadorn",
+				"tag": "dev"
+			}
+		}
+	}
+}

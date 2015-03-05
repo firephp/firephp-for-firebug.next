@@ -1,0 +1,27 @@
+{
+	"name": "firephp-for-firebug.next-server",
+    "upstream": {
+	    "packages": {
+			"top": [
+				"../../../../_upstream/os-inception/*",
+				"../../*",
+				"../../../*",
+				"../../../../../*"
+			]
+	    }
+    },
+    "mappings": {
+		"pinf-to-docker": "top/pinf-to-docker"
+    },
+    "scripts": {
+	    "install": "../node_modules/.bin/smi install ; ./node_modules/pinf-to-docker/bin/pinf-publish --ignore-dirty",
+		"publish": "./node_modules/pinf-to-docker/bin/pinf-publish",
+		"run": "./node_modules/pinf-to-docker/bin/pinf-run",
+		"start": "./node_modules/pinf-to-docker/bin/pinf-start"
+    },
+    "config": {
+	    "smi.cli": {
+	        "packagesDirectory": "node_modules"
+	    }
+    }
+}
