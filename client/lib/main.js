@@ -7,6 +7,9 @@ const { Panel:PANEL } = require("./panel.js");
 const { Cu:CU } = require("chrome");
 const { gDevTools:GDEVTOOLS } = CU.import("resource:///modules/devtools/gDevTools.jsm", {});
 
+const { data:DATA } = require("sdk/self");
+const { sandbox:SANDBOX } = require("pinf-for-mozilla-addon-sdk");
+
 
 /**
  * Application entry point. Read MDN to learn more about Add-on SDK:
@@ -18,6 +21,12 @@ function main(options, callbacks) {
 
   // Wait for Console panel initialization
   GDEVTOOLS.on("webconsole-init", onConsoleInit);
+
+
+  SANDBOX(DATA.url("bundle.js"), function(sandbox) {
+
+    sandbox.main();
+  });
 }
 
 function onUnload(reason) {

@@ -3,13 +3,28 @@
 	"dependencies": {
 		"smi.cli": "0.x"
 	},
+    "upstream": {
+	    "packages": {
+			"top": [
+				"../../lib/*",
+				"/opt/services/*"
+			]
+	    }
+    },
+    "mappings": {
+    	"./client/node_modules/pinf-for-mozilla-addon-sdk": "top/pinf-for-mozilla-addon-sdk"
+    },
     "scripts": {
-	    "install": "cd ./server; npm install --unsafe-perm",
+	    "install": "./node_modules/.bin/smi install ; cd ./server; npm install --unsafe-perm",
 		"publish": "cd ./server; npm run-script publish",
 		"run": "cd ./server; npm run-script run",
 		"start": "cd ./server; npm run-script start"
     },
     "config": {
+    	"smi.cli": {
+	        "packagesDirectory": "node_modules",
+	        "latestOnly": true
+	    },
 	    "pio.deploy.converter": {
 	        "name": "nodejs-server",
 	        "scriptsPath": "scripts.pio"
