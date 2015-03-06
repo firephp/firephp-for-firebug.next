@@ -1,0 +1,31 @@
+{
+    "name": "firephp-for-firebug.next-components",
+    "main": "./main.js",
+    "exports": {
+        "bundles": {
+            "main.js": "./main.js"
+        }
+    },
+    "upstream": {
+        "packages": {
+            "top": [
+                "../../../../_upstream/os-inception/*",
+                "../../*",
+                "../../../*",
+                "../../../../../*"
+            ]
+        }
+    },
+    "mappings": {
+        "to.pinf.lib": "top/to.pinf.lib"
+    },
+    "scripts": {
+        "install": "../node_modules/.bin/smi install",
+        "build": "rm -Rf .rt ; ../node_modules/.bin/pinf-bundle"
+    },
+    "config": {
+        "smi.cli": {
+            "packagesDirectory": "node_modules"
+        }
+    }
+}
