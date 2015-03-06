@@ -1,5 +1,5 @@
 
-exports.main = function (API) {
+exports.for = function (API) {
 
     const OBSERVER_SERVICE = API.CC["@mozilla.org/observer-service;1"].getService(API.CI.nsIObserverService);
 
@@ -34,7 +34,7 @@ exports.main = function (API) {
 
                     requestIndex += 1;
 
-                    API.emit("response", {
+                    var response = {
                         "request": {
                             "id": requestId || "id:" + httpChannel.URI.spec + ":" + requestIndex,
                             "url": httpChannel.URI.spec,
@@ -42,11 +42,15 @@ exports.main = function (API) {
                             "port": httpChannel.URI.port,
                             "method": httpChannel.requestMethod,
                             "headers": requestHeaders
-                        } 
+                        },
                         "status": httpChannel.responseStatus,
                         "contentType": contentType,
                         "headers": responseHeaders
-                    });
+                    };
+
+                    API.console.log("response", response);
+
+                    API.emit("response", response);
 
                 } catch (err) {
                     API.console.error(err);
@@ -61,4 +65,6 @@ exports.main = function (API) {
     API.on("destroy", function () {
         OBSERVER_SERVICE.removeObserver(LISTENER, "http-on-examine-response");
     });
+
+    return {};
 }

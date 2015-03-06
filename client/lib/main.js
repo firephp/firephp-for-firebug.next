@@ -4,7 +4,7 @@
 
 const { Extension:EXTENSION } = require("./extension.js");
 const { Panel:PANEL } = require("./panel.js");
-const { Cu:CU } = require("chrome");
+const { Cc: CC, Cu:CU, Ci:CI } = require("chrome");
 const { gDevTools:GDEVTOOLS } = CU.import("resource:///modules/devtools/gDevTools.jsm", {});
 
 const { data:DATA } = require("sdk/self");
@@ -23,10 +23,16 @@ function main(options, callbacks) {
   GDEVTOOLS.on("webconsole-init", onConsoleInit);
 
 
-  SANDBOX(DATA.url("bundle.js"), function(sandbox) {
+  SANDBOX(DATA.url("bundles/components/main.js"), function(sandbox) {
 
-    sandbox.main();
+    sandbox.main({
+      CC: CC,
+      CU: CU,
+      CI: CI,
+      GDEVTOOLS: GDEVTOOLS
+    });
   });
+
 }
 
 function onUnload(reason) {
