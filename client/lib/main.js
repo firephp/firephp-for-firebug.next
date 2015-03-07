@@ -3,9 +3,9 @@
 "use strict";
 
 const { Extension:EXTENSION } = require("./extension.js");
-const { Panel:PANEL } = require("./panel.js");
 const { Cc: CC, Cu:CU, Ci:CI } = require("chrome");
 const { gDevTools:GDEVTOOLS } = CU.import("resource:///modules/devtools/gDevTools.jsm", {});
+
 
 const { data:DATA } = require("sdk/self");
 const { sandbox:SANDBOX } = require("pinf-for-mozilla-addon-sdk");
@@ -29,7 +29,13 @@ function main(options, callbacks) {
       CC: CC,
       CU: CU,
       CI: CI,
-      GDEVTOOLS: GDEVTOOLS
+      GDEVTOOLS: GDEVTOOLS,
+      SELF: require("sdk/self"),
+      TIMERS: require("sdk/timers"),
+      CLASS: require("sdk/core/heritage").Class,
+      DEV_PANEL: require("dev/panel.js").Panel,
+      DEV_TOOL: require("dev/toolbox").Tool,
+      PANEL: require("sdk/panel")
     });
   });
 

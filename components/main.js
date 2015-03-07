@@ -17,20 +17,33 @@ exports.main = function (API) {
 	}).console;
 
 
-	console.log("Init components");
+	console.log("Init components ...");
+
+	try {
+
+		const HTTP_RESPONSE_OBSERVER_API = makeAPI(API, {
+			name: "http-response-observer"
+		});
+		const HTTP_RESPONSE_OBSERVER_EXPORTS = require("./adapters/http-response-observer").for(HTTP_RESPONSE_OBSERVER_API);
+
+		HTTP_RESPONSE_OBSERVER_API.on("response", function (response) {
+
+			API.console.log("response in MAIN", response);
+
+		});
 
 
-	const HTTP_RESPONSE_OBSERVER_API = makeAPI(API, {
-		name: "http-response-observer"
-	});
-	const HTTP_RESPONSE_OBSERVER_EXPORTS = require("./adapters/http-response-observer").for(HTTP_RESPONSE_OBSERVER_API);
+		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
+			name: "devtools-panel"
+		});
+		const UI_DEVTOOLS_PANEL_EXPORTS = require("./ui/devtools-panel").for(UI_DEVTOOLS_PANEL_API);
 
+	} catch (err) {
+		console.error(err.stack);
+		throw err;
+	}
 
-	HTTP_RESPONSE_OBSERVER_API.on("response", function (response) {
-
-		API.console.log("response in MAIN", response);
-
-	});
+	console.log("... init components done!");
 }
 
 

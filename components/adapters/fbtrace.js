@@ -12,13 +12,20 @@ exports.for = function (API) {
     } catch(err) {
     }
 
-
-    function log (label, obj) {
-        if (typeof object === "undefined") {
-            object = label;
+    function normalizeLogArguments (label, obj) {
+        if (typeof obj === "undefined") {
+            obj = label;
             label = ("" + obj);
         }
-        FBTrace.sysout(label, obj);
+        return {
+            label: label,
+            obj: obj
+        };
+    }
+
+    function log (label, obj) {
+        var args = normalizeLogArguments(label, obj);
+        FBTrace.sysout(args.label, args.obj);
     }
     API.on("log", log);
 
@@ -39,10 +46,12 @@ exports.for = function (API) {
         return (new Console(context));
     }
     Console.prototype.log = function (label, obj) {
-        return log(this._prefixLabel(label || ("" + obj)), obj);
+        var args = normalizeLogArguments(label, obj);
+        return log(this._prefixLabel(args.label), args.obj);
     }
     Console.prototype.error = function (label, obj) {
-        return log(this._prefixLabel("ERROR: " + (label || ("" + obj))), obj);
+        var args = normalizeLogArguments(label, obj);
+        return log(this._prefixLabel("ERROR: " + args.label), args.obj);
     }
 
 
