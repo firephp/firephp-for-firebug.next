@@ -14,6 +14,8 @@
     },
     "scripts": {
         "install": "../node_modules/.bin/smi install",
-        "build": "rm -Rf .rt ; ../node_modules/to.pinf.lib/bin/pinf-bundle"
+        "build": "rm -Rf .rt ; ../node_modules/to.pinf.lib/bin/pinf-bundle ; ../node_modules/pinf-to-browser/bin/pinf-publish",
+        "run": "../node_modules/pinf-to-browser/bin/pinf-run",
+        "start": "../node_modules/pinf-to-browser/bin/pinf-start"
     }
 }

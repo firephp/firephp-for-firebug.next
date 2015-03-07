@@ -14,13 +14,14 @@
     },
     "mappings": {
     	"./client/node_modules/pinf-for-mozilla-addon-sdk": "top/pinf-for-mozilla-addon-sdk",
+    	"pinf-to-browser": "top/pinf-to-browser",
         "to.pinf.lib": "top/to.pinf.lib"
     },
     "scripts": {
 	    "install": "./node_modules/.bin/smi install ; cd components ; npm install --unsafe-perm ; cd .. ; cd ./server; npm install --unsafe-perm",
 		"publish": "cd components ; npm run-script build ; cd .. ; cd ./server; npm run-script publish",
-		"run": "cd ./server; npm run-script run",
-		"start": "cd ./server; npm run-script start"
+		"run": "./node_modules/to.pinf.lib/bin/pinf-run",
+		"start": "./node_modules/to.pinf.lib/bin/pinf-start"
     },
     "config": {
     	"smi.cli": {

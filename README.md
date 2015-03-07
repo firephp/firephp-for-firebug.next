@@ -1,7 +1,7 @@
 FirePHP for Firebug.Next
 ========================
 
-The original [FirePHP Firebug extension](https://github.com/firephp/firephp-extension) re-implemented to leverage the latest [module loader](https://github.com/pinf/pinf-loader-js), [console logging](https://github.com/fireconsole), [out-of-band communication](https://github.com/firenode) libraries and [development system](https://github.com/devcomp-io) working against [Firebug.Next](https://github.com/firebug/firebug.next) and [Firefox Nightly](https://nightly.mozilla.org/).
+The original [FirePHP Firebug extension](https://github.com/firephp/firephp-extension) re-implemented to leverage the latest [module loader](https://github.com/pinf/pinf-loader-js), [console logging](https://github.com/fireconsole), [out-of-band communication](https://github.com/firenode) libraries, [installer](https://github.com/sourcemint/smi) and [development system](https://github.com/devcomp-io) working against [Firebug.Next](https://github.com/firebug/firebug.next) and [Firefox Nightly](https://nightly.mozilla.org/).
 
 
 Install
@@ -38,7 +38,7 @@ Roadmap
 -------
 
   1. Stabilize core featureset
-  2. Refactor `client` and `components` into [github.com/freedom-platform/fp-for-mozilla-extensions](http://github.com/freedom-platform/fp-for-mozilla-extensions)
+  2. Refactor `client` and `components` into [github.com/pinf-to/pinf-to-mozilla-addon](http://github.com/pinf-to/pinf-to-mozilla-addon) and [github.com/freedom-platform/fp-for-mozilla-extensions](http://github.com/freedom-platform/fp-for-mozilla-extensions)
   3. Support development without needing [github.com/firebug/dev-system](https://github.com/firebug/dev-system) by simply running: `git clone ; bin/install ; bin/run`
 
 
