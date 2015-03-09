@@ -15,9 +15,8 @@
     },
     "scripts": {
 	    "install": "../node_modules/.bin/smi install ; ./node_modules/pinf-to-docker/bin/pinf-publish --ignore-dirty",
-		"publish": "./node_modules/pinf-to-docker/bin/pinf-publish",
-		"run": "./node_modules/pinf-to-docker/bin/pinf-run",
-		"start": "./node_modules/pinf-to-docker/bin/pinf-start"
+		"bundle": "./node_modules/pinf-to-docker/bin/pinf-publish",
+		"run": "./node_modules/pinf-to-docker/bin/pinf-run"
     },
     "config": {
 	    "smi.cli": {

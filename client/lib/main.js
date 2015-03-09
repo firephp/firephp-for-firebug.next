@@ -23,7 +23,11 @@ function main(options, callbacks) {
   GDEVTOOLS.on("webconsole-init", onConsoleInit);
 
 
-  SANDBOX(DATA.url("bundles/components/main.js"), function(sandbox) {
+  var uri = DATA.url("bundles/components/main.js");
+// TODO: Get URI from mappings.
+  uri = "http://localhost:8080/bundles/main.js";
+
+  SANDBOX(uri, function(sandbox) {
 
     sandbox.main({
       CC: CC,
@@ -35,7 +39,13 @@ function main(options, callbacks) {
       CLASS: require("sdk/core/heritage").Class,
       DEV_PANEL: require("dev/panel.js").Panel,
       DEV_TOOL: require("dev/toolbox").Tool,
-      PANEL: require("sdk/panel")
+      PANEL: require("sdk/panel"),
+      PAGE_WORKER: require("sdk/page-worker"),
+      ADDON_INSTALLER: require("sdk/addon/installer"),
+      TABS: require("sdk/tabs"),
+      getBootOptions: function () {
+        return options;
+      }
     });
   });
 

@@ -17,8 +17,10 @@ Development
 
 This project is being developed within the [github.com/firebug/dev-system](https://github.com/firebug/dev-system). Once installed you can run:
 
-    pio publish --local firephp-for-firebug.next
-    pio run firephp-for-firebug.next --open
+    pio bundle --local firephp-for-firebug.next
+    pio run --local --dev firephp-for-firebug.next --open
+    pio run --local --dev firephp-for-firebug.next -- components
+    pio run --local --dev firephp-for-firebug.next -- server
     profile run fbn-firephp
     profile run fbn-firephp-test
 

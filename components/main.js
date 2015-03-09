@@ -21,8 +21,28 @@ exports.main = function (API) {
 
 	try {
 
+		const ADDON_API = makeAPI(API, {
+			name: "adapters/addon"
+		});
+		const ADDON_EXPORTS = require("./adapters/addon").for(ADDON_API);
+
+
+
+		const MONITORS_BUNDLE_SERVER_API = makeAPI(API, {
+			name: "monitors/bundle-server"
+		});
+		const MONITORS_BUNDLE_SERVER_EXPORTS = require("./monitors/bundle-server").for(MONITORS_BUNDLE_SERVER_API);
+
+		MONITORS_BUNDLE_SERVER_API.once("restarted", function () {
+
+			ADDON_EXPORTS.reload();
+
+		});
+
+
+
 		const HTTP_RESPONSE_OBSERVER_API = makeAPI(API, {
-			name: "http-response-observer"
+			name: "adapters/http-response-observer"
 		});
 		const HTTP_RESPONSE_OBSERVER_EXPORTS = require("./adapters/http-response-observer").for(HTTP_RESPONSE_OBSERVER_API);
 
@@ -33,10 +53,18 @@ exports.main = function (API) {
 		});
 
 
+
 		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
-			name: "devtools-panel"
+			name: "ui/devtools-panel"
 		});
 		const UI_DEVTOOLS_PANEL_EXPORTS = require("./ui/devtools-panel").for(UI_DEVTOOLS_PANEL_API);
+
+
+
+API.console.log("Open tab!");
+API.TABS.open("http://localhost:49084/");
+
+
 
 	} catch (err) {
 		console.error(err.stack);
