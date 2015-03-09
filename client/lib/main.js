@@ -19,34 +19,45 @@ function main(options, callbacks) {
   // Initialize extension object (singleton).
   EXTENSION.initialize(options);
 
-  // Wait for Console panel initialization
+
   GDEVTOOLS.on("webconsole-init", onConsoleInit);
 
 
+  var API = {
+    CC: CC,
+    CU: CU,
+    CI: CI,
+    GDEVTOOLS: GDEVTOOLS,
+    SELF: require("sdk/self"),
+    TIMERS: require("sdk/timers"),
+    CLASS: require("sdk/core/heritage").Class,
+    DEV_PANEL: require("dev/panel.js").Panel,
+    DEV_TOOL: require("dev/toolbox").Tool,
+    PANEL: require("sdk/panel"),
+    PAGE_WORKER: require("sdk/page-worker"),
+    ADDON_INSTALLER: require("sdk/addon/installer"),
+    TABS: require("sdk/tabs"),
+    SYSTEM: require("sdk/system"),
+    SIMPLE_PREFS: require("sdk/simple-prefs"),
+    PREFERENCES_SERVICE: require("sdk/preferences/service")
+  };
+
+  API.getBootOptions = function () {
+    return options;
+  }
+
+  API.inDevMode = function () {
+    return !!API.SIMPLE_PREFS.prefs.dev;
+  }
+
+
   var uri = DATA.url("bundles/components/main.js");
-// TODO: Get URI from mappings.
-  uri = "http://localhost:8080/bundles/main.js";
-
+  if (API.inDevMode()) {
+    // TODO: Get URI from mappings.
+    uri = "http://localhost:8080/bundles/main.js";
+  }
   SANDBOX(uri, function(sandbox) {
-
-    sandbox.main({
-      CC: CC,
-      CU: CU,
-      CI: CI,
-      GDEVTOOLS: GDEVTOOLS,
-      SELF: require("sdk/self"),
-      TIMERS: require("sdk/timers"),
-      CLASS: require("sdk/core/heritage").Class,
-      DEV_PANEL: require("dev/panel.js").Panel,
-      DEV_TOOL: require("dev/toolbox").Tool,
-      PANEL: require("sdk/panel"),
-      PAGE_WORKER: require("sdk/page-worker"),
-      ADDON_INSTALLER: require("sdk/addon/installer"),
-      TABS: require("sdk/tabs"),
-      getBootOptions: function () {
-        return options;
-      }
-    });
+    sandbox.main(API);
   });
 
 }

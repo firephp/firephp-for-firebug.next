@@ -28,16 +28,18 @@ exports.main = function (API) {
 
 
 
-		const MONITORS_BUNDLE_SERVER_API = makeAPI(API, {
-			name: "monitors/bundle-server"
-		});
-		const MONITORS_BUNDLE_SERVER_EXPORTS = require("./monitors/bundle-server").for(MONITORS_BUNDLE_SERVER_API);
+		if (API.inDevMode()) {
 
-		MONITORS_BUNDLE_SERVER_API.once("restarted", function () {
+			const MONITORS_BUNDLE_SERVER_API = makeAPI(API, {
+				name: "monitors/bundle-server"
+			});
+			const MONITORS_BUNDLE_SERVER_EXPORTS = require("./monitors/bundle-server").for(MONITORS_BUNDLE_SERVER_API);
 
-			ADDON_EXPORTS.reload();
+			MONITORS_BUNDLE_SERVER_API.once("restarted", function () {
+				ADDON_EXPORTS.reload();
+			});
 
-		});
+		}
 
 
 
@@ -59,10 +61,6 @@ exports.main = function (API) {
 		});
 		const UI_DEVTOOLS_PANEL_EXPORTS = require("./ui/devtools-panel").for(UI_DEVTOOLS_PANEL_API);
 
-
-
-API.console.log("Open tab!");
-API.TABS.open("http://localhost:49084/");
 
 
 
