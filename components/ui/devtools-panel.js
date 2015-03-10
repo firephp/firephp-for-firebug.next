@@ -12,45 +12,32 @@ API.console.log("init panel");
         icon: "./FirePHP_16.png",
         url: "./panel.html",
 
-        /**
-        * Executed by the framework when an instance of this panel is created.
-        * There is one instance of this panel per {@Toolbox}. The panel is
-        * instantiated when selected in the toolbox for the first time.
-        */
-        initialize: function(options) {
 
-API.console.log("initialize()");
-API.console.log("initialize() this", this);
-API.console.log("initialize() options", options);
 
+        setup: function({debuggee}) {
+            this.debuggee = debuggee;
         },
-
-        /**
-        * Executed by the framework when the panel is destroyed.
-        */
         dispose: function() {
-API.console.log("dispose()");
+            this.debuggee = null;
         },
 
-        /**
-        * Executed by the framework when the panel content iframe is
-        * constructed. Allows e.g to connect the backend through
-        * `debuggee` object
-        */
-        setup: function(options) {
-        // TODO: connect to backend using options.debuggee
 
-API.console.log("setup()");
-API.console.log("setup() options", options);
+        onReady: function() {
+
+API.console.log("this.debuggee", this.debuggee);
+
+            this.debuggee.onmessage = function (event) {
+
+API.console.log("received message from devtools panel!!!", event);
+
+            }
+
+            this.postMessage("message from panel", [this.debuggee]);
+        },
+
+
 
 /*
-options.frame.contentWindow.addEventListener("message", function (event) {
-    API.console.log("GOT MESSAGE IN PANEL:", event.data);
-}, false);
-*/
-
-
-
             var panel = API.PANEL.Panel({
               contentURL: "./viewer.html",
               contentScriptFile: API.SELF.data.url("viewer.js")
@@ -69,14 +56,8 @@ API.TIMERS.setInterval(function () {
 
 }, 2000);
 
+*/
 
-
-
-
-
-API.console.log("setup() DONE");
-
-        }
     });
 
 API.console.log("register panel");

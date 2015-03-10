@@ -5,32 +5,20 @@
 
 <script>
 
-/*
-setInterval(function () {
-	window.postMessage("hello there 1!", "*");
-	if (window.parent) {
-		window.parent.postMessage("hello there 2!", "*");
-	}
-}, 1000);
-*/
+window.addEventListener("message", function (event) {
 
-window.onclick = function() {
-	console.log('unsafewindow.onclick: ' + window.document.title);
-	window.postMessage("hello there 1!", "*");
+	window.port = event.ports[0];
 
-console.log("window", window);
+dump("WINDOW PORT: " + (typeof port.emit) + "\n");
 
-}
+	port.onmessage = function (event) {
+dump("got message in panel:::1: " + event.data+ "\n");
 
+dump("got message in panel:::2: " + JSON.stringify(event.data) + "\n");
 
-
-	window.addEventListener("message", receiveMessage, false);
-
-	function receiveMessage (event) {
-
-dump("RECEIVED POST MESSAGE: " + event.data + "\n");
-
-	}
+//		port.postMessage("echo");
+	};
+});
 
 </script>
 
