@@ -6,6 +6,23 @@
             "main.js": "./main.js"
         }
     },
+    "imports": {
+        "globals": {
+            "Components": true
+        }
+    },
+    "upstream": {
+        "packages": {
+            "top": [
+                "../../../../_upstream/os-inception/*",
+                "../../../lib/*",
+                "/opt/services/*"
+            ]
+        }
+    },
+    "mappings": {
+        "firebug.sdk": "top/firebug.sdk"
+    },
     "dependencies": {
         "eventemitter2": "~0.4.14"
     },
@@ -13,8 +30,14 @@
         "bundles": "../client/data/bundles/components"
     },
     "scripts": {
-        "install": "../node_modules/.bin/smi install",
+        "install": "../node_modules/.bin/smi install -vd",
         "bundle": "rm -Rf .rt ; ../node_modules/to.pinf.lib/bin/pinf-bundle ; ../node_modules/pinf-to-browser/bin/pinf-publish",
         "run": "../node_modules/pinf-to-browser/bin/pinf-run"
+    },
+    "config": {
+        "smi.cli": {
+            "packagesDirectory": "node_modules",
+            "latestOnly": true
+        }
     }
 }

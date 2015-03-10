@@ -63,6 +63,12 @@ exports.main = function (API) {
 
 
 
+		const FIREBUG_API = makeAPI(API, {
+			name: "adapters/firebug"
+		});
+		const FIREBUG_EXPORTS = require("./adapters/firebug").for(FIREBUG_API);
+
+
 
 	} catch (err) {
 		console.error(err.stack);

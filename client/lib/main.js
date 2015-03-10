@@ -56,7 +56,35 @@ function main(options, callbacks) {
     // TODO: Get URI from mappings.
     uri = "http://localhost:8080/bundles/main.js";
   }
-  SANDBOX(uri, function(sandbox) {
+  SANDBOX(uri, {
+    global: {
+      // Not available in this context.
+      Components: undefined
+    },
+    onInitModule: function(moduleInterface, moduleObj, pkg, sandbox, options) {
+      var origRequire = moduleObj.require;
+      moduleObj.require = function(identifier) {
+        if (
+          identifier === "chrome" ||
+          /^sdk/.test(identifier)
+        ) {
+          // Return SDK module that is not bundled.
+          return require(identifier);
+        }
+        return origRequire(identifier);
+      }
+      for (var property in origRequire) {
+        moduleObj.require[property] = origRequire[property];
+      }
+      // @see http://nodejs.org/docs/latest/api/globals.html
+      moduleObj.require.resolve = function() {
+        throw new Error("NYI");
+      }
+      moduleObj.require.async = function(id, successCallback, errorCallback) {
+        throw new Error("NYI");
+      }
+    }
+  }, function(sandbox) {
     sandbox.main(API);
   });
 
