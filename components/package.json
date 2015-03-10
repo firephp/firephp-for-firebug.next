@@ -21,7 +21,8 @@
         }
     },
     "mappings": {
-        "firebug.sdk": "top/firebug.sdk"
+        "firebug.sdk": "top/firebug.sdk",
+        "wildfire-for-js": "top/wildfire-for-js"
     },
     "dependencies": {
         "eventemitter2": "~0.4.14"

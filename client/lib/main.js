@@ -57,6 +57,7 @@ function main(options, callbacks) {
     uri = "http://localhost:8080/bundles/main.js";
   }
   SANDBOX(uri, {
+    debug: API.inDevMode(),
     global: {
       // Not available in this context.
       Components: undefined

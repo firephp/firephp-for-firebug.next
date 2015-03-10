@@ -4,6 +4,25 @@ const EVENTS = require("eventemitter2");
 
 exports.main = function (API) {
 
+
+	var makeAPI = API.makeAPI = function (_API, extra) {
+		var API = new EVENTS();
+		for (var name in extra) {
+			API[name] = extra[name];
+		}
+		for (var name in _API) {
+			API[name] = _API[name];
+			if (
+				name === "console" &&
+				typeof (API[name].for) === "function"
+			) {
+				API[name] = API[name].for(API);
+			}
+		}
+		return API;
+	}
+
+
 	const FBTRACE_API = makeAPI(API, {
 		name: "fbtrace"
 	});
@@ -43,19 +62,6 @@ exports.main = function (API) {
 
 
 
-		const HTTP_RESPONSE_OBSERVER_API = makeAPI(API, {
-			name: "adapters/http-response-observer"
-		});
-		const HTTP_RESPONSE_OBSERVER_EXPORTS = require("./adapters/http-response-observer").for(HTTP_RESPONSE_OBSERVER_API);
-
-		HTTP_RESPONSE_OBSERVER_API.on("response", function (response) {
-
-			API.console.log("response in MAIN", response);
-
-		});
-
-
-
 		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
 			name: "ui/devtools-panel"
 		});
@@ -70,6 +76,23 @@ exports.main = function (API) {
 
 
 
+		const RECEIVERS_API = makeAPI(API, {
+			name: "receivers/_boot"
+		});
+		RECEIVERS_API.REQUEST_OBSERVER = require("./adapters/http-request-observer").for(makeAPI(API, {
+			name: "adapters/http-request-observer"
+		}));
+		RECEIVERS_API.RESPONSE_OBSERVER = require("./adapters/http-response-observer").for(makeAPI(API, {
+			name: "adapters/http-response-observer"
+		}));
+		const RECEIVERS_EXPORTS = require("./receivers/_boot").for(RECEIVERS_API);
+
+
+//API.TABS.open("http://localhost:49084/");
+API.TABS.open("http://firephp.org/");
+
+
+
 	} catch (err) {
 		console.error(err.stack);
 		throw err;
@@ -78,20 +101,3 @@ exports.main = function (API) {
 	console.log("... init components done!");
 }
 
-
-function makeAPI (_API, extra) {
-	var API = new EVENTS();
-	for (var name in extra) {
-		API[name] = extra[name];
-	}
-	for (var name in _API) {
-		API[name] = _API[name];
-		if (
-			name === "console" &&
-			typeof (API[name].for) === "function"
-		) {
-			API[name] = API[name].for(API);
-		}
-	}
-	return API;
-}

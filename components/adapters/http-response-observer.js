@@ -43,12 +43,13 @@ exports.for = function (API) {
                             "method": httpChannel.requestMethod,
                             "headers": requestHeaders
                         },
+                        "httpChannel": httpChannel,
                         "status": httpChannel.responseStatus,
                         "contentType": contentType,
                         "headers": responseHeaders
                     };
 
-                    API.console.log("response", response);
+                    //API.console.log("response", response);
 
                     API.emit("response", response);
 
@@ -66,5 +67,7 @@ exports.for = function (API) {
         OBSERVER_SERVICE.removeObserver(LISTENER, "http-on-examine-response");
     });
 
-    return {};
+    return {
+        on: API.on.bind(API)
+    };
 }
