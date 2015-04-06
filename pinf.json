@@ -1,5 +1,5 @@
 {
-	"genesis.pinf.org/0": {
+	"firephp-for-firebug.next/0": {
 		"programs": {
 			"components": {
 				"location": "./components/program.json",

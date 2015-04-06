@@ -1,5 +1,6 @@
 {
     "name": "firephp-for-firebug.next-components",
+    "uid": "github.com/firephp/firephp-for-firebug.next/components",
     "main": "./main.js",
     "exports": {
         "bundles": {
