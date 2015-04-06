@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "install": "cd components ; npm install --unsafe-perm ; cd .."
+    "install": "./node_modules/.bin/genesis.pinf.org install; cd components ; npm install --unsafe-perm ; cd .."
   },
   "config": {
     "smi.cli": {
