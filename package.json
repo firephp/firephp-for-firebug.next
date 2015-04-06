@@ -1,28 +1,29 @@
 {
-	"name": "firephp-for-firebug.next",
-	"dependencies": {
-		"smi.cli": "0.x"
-	},
-    "upstream": {
-	    "packages": {
-			"top": [
-                "../../../_upstream/os-inception/*",
-				"../../lib/*",
-				"/opt/services/*"
-			]
-	    }
-    },
-    "scripts": {
-	    "install": "cd components ; npm install --unsafe-perm ; cd .."
-    },
-    "config": {
-    	"smi.cli": {
-	        "packagesDirectory": "node_modules",
-	        "latestOnly": true
-	    },
-	    "pio.deploy.converter": {
-	        "name": "nodejs-server",
-	        "scriptsPath": "scripts.pio"
-	    }
+  "name": "firephp-for-firebug.next",
+  "dependencies": {
+    "genesis.pinf.org": "0.1.x",
+    "smi.cli": "0.x"
+  },
+  "upstream": {
+    "packages": {
+      "top": [
+        "../../../_upstream/os-inception/*",
+        "../../lib/*",
+        "/opt/services/*"
+      ]
     }
+  },
+  "scripts": {
+    "install": "cd components ; npm install --unsafe-perm ; cd .."
+  },
+  "config": {
+    "smi.cli": {
+      "packagesDirectory": "node_modules",
+      "latestOnly": true
+    },
+    "pio.deploy.converter": {
+      "name": "nodejs-server",
+      "scriptsPath": "scripts.pio"
+    }
+  }
 }
