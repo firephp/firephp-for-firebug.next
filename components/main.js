@@ -49,17 +49,18 @@ exports.main = function (API) {
 
 		if (API.inDevMode()) {
 
-			const MONITORS_BUNDLE_SERVER_API = makeAPI(API, {
-				name: "monitors/bundle-server"
-			});
-			const MONITORS_BUNDLE_SERVER_EXPORTS = require("./monitors/bundle-server").for(MONITORS_BUNDLE_SERVER_API);
-
-			MONITORS_BUNDLE_SERVER_API.once("restarted", function () {
-				ADDON_EXPORTS.reload();
-			});
 
 		}
 
+
+
+		const UI_DEVTOOLS_EXTENSION_API = makeAPI(API, {
+			name: "ui/devtools-extension"
+		});
+		const UI_DEVTOOLS_EXTENSION_EXPORTS = require("./ui/devtools-extension").for(UI_DEVTOOLS_EXTENSION_API);
+
+//UI_DEVTOOLS_EXTENSION_EXPORTS.initialize(options);
+//UI_DEVTOOLS_EXTENSION_EXPORTS.shutdown(reason);
 
 
 		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
@@ -92,6 +93,32 @@ exports.main = function (API) {
 API.TABS.open("http://firephp.org/");
 
 
+/*
+GDEVTOOLS.on("webconsole-init", onConsoleInit);
+// Console panel customization.
+function onConsoleInit(eventId, toolbox, panelFrame) {
+  // Use the toolbox object and wait till the Console panel
+  // is fully ready (panel frame loaded).
+  toolbox.once("webconsole-ready", (eventId, panel) => {
+    panel.hud.ui.on("new-messages", onNewMessages);
+  });
+}
+function onNewMessages(topic, messages) {
+  messages.forEach(msg => {
+    onNewMessage(msg);
+  });
+}
+function onNewMessage(msg) {
+  // Get DOM node associated with the message
+  let node = msg.node;
+  let category = node.getAttribute("category");
+
+  // If category of the node is 'console' change the background.
+  if (category == "console") {
+    msg.node.setAttribute("style", "background-color: green");
+  }
+}
+*/
 
 	} catch (err) {
 		console.error(err.stack);

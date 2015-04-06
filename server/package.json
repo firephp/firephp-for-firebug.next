@@ -11,13 +11,10 @@
 	    }
     },
     "mappings": {
-		"pinf-to-docker": "top/pinf-to-docker",
 		"firephp-core": "https://github.com/firephp/firephp-core/archive/67b5aa8e314eb88f8927d1213ea268effa1dfa3d.tar.gz"
     },
     "scripts": {
-	    "install": "../node_modules/.bin/smi install ; ./node_modules/pinf-to-docker/bin/pinf-publish --ignore-dirty",
-		"bundle": "./node_modules/pinf-to-docker/bin/pinf-publish",
-		"run": "./node_modules/pinf-to-docker/bin/pinf-run"
+	    "install": "../node_modules/.bin/smi install"
     },
     "config": {
 	    "smi.cli": {

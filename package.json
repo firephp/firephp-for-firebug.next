@@ -12,17 +12,8 @@
 			]
 	    }
     },
-    "mappings": {
-    	"./client/node_modules/pinf-for-mozilla-addon-sdk": "top/pinf-for-mozilla-addon-sdk",
-    	"pinf-to-browser": "top/pinf-to-browser",
-    	"pinf-to-mozilla-addon": "top/pinf-to-mozilla-addon",
-        "to.pinf.lib": "top/to.pinf.lib"
-    },
     "scripts": {
-	    "install": "./node_modules/.bin/smi install ; cd components ; npm install --unsafe-perm ; cd .. ; cd ./server; npm install --unsafe-perm",
-		"bundle": "cd components ; npm run-script bundle ; cd .. ; cd ./server; npm run-script bundle",
-		"run": "./node_modules/to.pinf.lib/bin/pinf-run",
-		"build-xpi": "cd client ; jpm xpi -o ../../../lib/mozilla.addon-sdk"
+	    "install": "cd components ; npm install --unsafe-perm ; cd .."
     },
     "config": {
     	"smi.cli": {
