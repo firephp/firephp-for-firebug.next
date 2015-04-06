@@ -8,6 +8,24 @@
 			"target": "browser"
 		},
 		"github.com/pinf-to/pinf-to-browser/0": {
+		},
+		"github.com/pinf-it/pinf-it-filetree-insight/0": {
+			"$to": "filetree",
+			"watch": true
+		},		
+		"github.com/pinf-to/pinf-to-pio/0": {
+			"$to": "network",
+			"ports": {
+				"default": "{{getFreePort()}}"
+			}
+		},
+		"github.com/pinf-to/pinf-to-browser/0": {
+			"$to": "server",
+			"bind": "127.0.0.1",
+			"port": "{{$from.network.ports.default}}",
+			"config": {
+				"sourceHashFile": "{{$from.filetree.hashFile}}"
+			}
 		}
 	}
 }

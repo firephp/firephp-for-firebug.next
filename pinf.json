@@ -1,0 +1,14 @@
+{
+	"genesis.pinf.org/0": {
+		"programs": {
+			"components": {
+				"location": "./components/program.json",
+				"config": {
+					"genesis.pinf.org/0": {
+						"plugin": "github.com/pinf-to/pinf-to-browser"
+					}
+				}
+			}
+		}
+	}
+}
