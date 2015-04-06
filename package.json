@@ -15,6 +15,7 @@
     "mappings": {
     	"./client/node_modules/pinf-for-mozilla-addon-sdk": "top/pinf-for-mozilla-addon-sdk",
     	"pinf-to-browser": "top/pinf-to-browser",
+    	"pinf-to-mozilla-addon": "top/pinf-to-mozilla-addon",
         "to.pinf.lib": "top/to.pinf.lib"
     },
     "scripts": {
