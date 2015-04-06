@@ -1,5 +1,6 @@
 {
   "name": "firephp-for-firebug.next",
+  "uid": "github.com/firephp/firephp-for-firebug.next",
   "dependencies": {
     "genesis.pinf.org": "0.1.x",
     "smi.cli": "0.x"

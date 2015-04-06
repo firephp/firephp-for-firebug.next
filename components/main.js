@@ -2,7 +2,43 @@
 const EVENTS = require("eventemitter2");
 
 
+
 exports.main = function (API) {
+
+	var exports = {};
+
+	exports.resolve = function (resolver, config, previousResolvedConfig) {
+
+		API.insight.debug("1 resolve()", resolver, config, previousResolvedConfig);
+
+		return resolver({}).then(function (resolvedConfig) {
+
+			API.insight.debug("2 resolve() - resolvedConfig", resolvedConfig);
+
+			return resolvedConfig;
+		});
+	}
+
+	exports.turn = function (resolvedConfig) {
+
+		API.insight.debug("3 turn()", resolvedConfig);
+
+	}
+
+	exports.spin = function (resolvedConfig) {
+
+		API.insight.debug("4 spin()", resolvedConfig);
+
+	}
+
+	return exports;
+}
+
+
+
+
+
+exports.main2 = function (API) {
 
 
 	var makeAPI = API.makeAPI = function (_API, extra) {

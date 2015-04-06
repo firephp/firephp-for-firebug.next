@@ -4,10 +4,14 @@
 		"package": "./package.json"
 	},
 	"config": {
+		"github.com/firephp/firephp-for-firebug.next/components/0": {
+			"$to": "boot",
+			"run": {
+				"mainComponentUrl": "http://{{$from.server.bind}}:{{$from.server.port}}/bundles/main.js"
+			}
+		},
 		"github.com/pinf-it/pinf-it-bundler/0": {
 			"target": "browser"
-		},
-		"github.com/pinf-to/pinf-to-browser/0": {
 		},
 		"github.com/pinf-it/pinf-it-filetree-insight/0": {
 			"$to": "filetree",
