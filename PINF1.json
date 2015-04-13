@@ -1,0 +1,53 @@
+{
+    "config": {
+        "genesis.pinf.org/0": {
+            "TMP___programs": {
+                "components": {
+                    "location": "./components/program.json",
+                    "config": {
+                        "genesis.pinf.org/0": {
+                            "for": "github.com/firephp/firephp-for-firebug.next/components"
+                        }
+                    }
+                }
+            }
+        },
+        "TMP__github.com/pinf-to/pinf-to-mozilla-addon/0": {
+            "config": {
+                "mainComponentUrl": "http://{{$from.pgs.programs.components.getRuntimeConfigFor(boot).run.mainComponentUrl}}"
+            }
+        }
+    },
+    "___TMP___github.com/pinf-to/to.pinf.lib/0": {
+        "programs": {
+            "components": {
+                "path": "./components/program.json",
+                "env": {
+                    "PORT": 8080
+                },
+                "routes": {
+                    "alive": {
+                        "uri": "/",
+                        "expect": {
+                            "statusCode": 200
+                        }
+                    }
+                }
+            },
+            "server": {
+                "path": "./server/program.json",
+                "env": {
+                    "PORT": 49084
+                },
+                "routes": {
+                    "alive": {
+                        "uri": "/",
+                        "expect": {
+                            "statusCode": 200
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
