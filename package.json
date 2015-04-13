@@ -21,10 +21,6 @@
     "smi.cli": {
       "packagesDirectory": "node_modules",
       "latestOnly": true
-    },
-    "pio.deploy.converter": {
-      "name": "nodejs-server",
-      "scriptsPath": "scripts.pio"
     }
   }
 }
