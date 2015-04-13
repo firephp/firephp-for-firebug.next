@@ -2,44 +2,7 @@
 const EVENTS = require("eventemitter2");
 
 
-
 exports.main = function (API) {
-
-	var exports = {};
-
-	exports.resolve = function (resolver, config, previousResolvedConfig) {
-
-		API.insight.debug("1 resolve()", resolver, config, previousResolvedConfig);
-
-		return resolver({}).then(function (resolvedConfig) {
-
-			API.insight.debug("2 resolve() - resolvedConfig", resolvedConfig);
-
-			return resolvedConfig;
-		});
-	}
-
-	exports.turn = function (resolvedConfig) {
-
-		API.insight.debug("3 turn()", resolvedConfig);
-
-	}
-
-	exports.spin = function (resolvedConfig) {
-
-		API.insight.debug("4 spin()", resolvedConfig);
-
-	}
-
-	return exports;
-}
-
-
-
-
-
-exports.main2 = function (API) {
-
 
 	var makeAPI = API.makeAPI = function (_API, extra) {
 		var API = new EVENTS();
@@ -58,19 +21,9 @@ exports.main2 = function (API) {
 		return API;
 	}
 
-
-	const FBTRACE_API = makeAPI(API, {
-		name: "fbtrace"
-	});
-	const FBTRACE_EXPORTS = require("./adapters/fbtrace").for(FBTRACE_API);
-	//FBTRACE_EXPORTS.console.log("CALLED MAIN IN ADAPTER 4444!");
-	//FBTRACE_API.emit("log", "CALLED MAIN IN ADAPTER 5555!");
-
-	API.console = FBTRACE_EXPORTS.console;
 	var console = makeAPI(API, {
 		name: "main"
 	}).console;
-
 
 	console.log("Init components ...");
 
@@ -98,7 +51,6 @@ exports.main2 = function (API) {
 //UI_DEVTOOLS_EXTENSION_EXPORTS.initialize(options);
 //UI_DEVTOOLS_EXTENSION_EXPORTS.shutdown(reason);
 
-
 		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
 			name: "ui/devtools-panel"
 		});
@@ -112,7 +64,6 @@ exports.main2 = function (API) {
 		const FIREBUG_EXPORTS = require("./adapters/firebug").for(FIREBUG_API);
 
 
-
 		const RECEIVERS_API = makeAPI(API, {
 			name: "receivers/_boot"
 		});
@@ -123,10 +74,6 @@ exports.main2 = function (API) {
 			name: "adapters/http-response-observer"
 		}));
 		const RECEIVERS_EXPORTS = require("./receivers/_boot").for(RECEIVERS_API);
-
-
-//API.TABS.open("http://localhost:49084/");
-API.TABS.open("http://firephp.org/");
 
 
 /*
@@ -157,10 +104,12 @@ function onNewMessage(msg) {
 */
 
 	} catch (err) {
-		console.error(err.stack);
+		console.error("ERROR: " + err.message, err.stack);
 		throw err;
 	}
 
 	console.log("... init components done!");
+
+	return {};
 }
 

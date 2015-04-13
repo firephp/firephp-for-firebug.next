@@ -16,7 +16,7 @@
         },
         "github.com/pinf-to/pinf-to-mozilla-addon/0": {
             "$to": "addon",
-            "id": "{{$from.pgs.uid}}@{{$from.pgs.basename}}",
+            "id": "firephp-for-firebug.next@firephp.org",
             "name": "{{$from.pgs.basename}}",
             "config": {
                 "label": "{{$from.pgs.basename}}",
@@ -31,7 +31,7 @@
             "extensions": {
                 "firebug@software.joehewitt.com": "https://getfirebug.com/releases/firebug/3.0/firebug-3.0.0-alpha.9.xpi",
                 "fbtrace@getfirebug.com": "https://getfirebug.com/releases/fbtrace/3.0/fbtrace-3.0b1.xpi",
-                "{{$from.pgs.uid}}@{{$from.pgs.basename}}": "{{$from.addon.path}}"
+                "firephp-for-firebug.next@firephp.org": "{{$from.addon.path}}"
             },
             "preferences": {
                 "extensions.firebug.alwaysOpenTraceConsole": true,
