@@ -23,9 +23,11 @@ Implementation
 
 This [Firefox add-on](https://developer.mozilla.org/en-US/Add-ons) is built using [github.com/pinf-it](https://github.com/pinf-it) to bundle and [github.com/pinf/pinf-for-mozilla-addon-sdk](https://github.com/pinf/pinf-for-mozilla-addon-sdk) to load source code bundles on demand as the addon is loaded and reloaded triggered by source changes.
 
+On the server side, [github.com/pinf-to/pinf-to-docker](https://github.com/pinf-to/pinf-to-docker) is used to start a PHP server. 
+
 The source code is structured as follows:
 
-  * `components` - The extension implementation broken down into logical modules along with any dependencies the client needs.
+  * `components` - The add-on implementation broken down into logical modules along with any dependencies the client needs.
   * `server` - PHP scripts that load the [github.com/firephp/firephp-core](https://github.com/firephp/firephp-core) and [github.com/firephp/firephp](https://github.com/firephp/firephp) libraries and generate test data for the client.
 
 Roadmap
