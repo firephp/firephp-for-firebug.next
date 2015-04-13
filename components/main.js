@@ -4,7 +4,6 @@ const EVENTS = require("eventemitter2");
 
 exports.main = function (API) {
 
-
 	var makeAPI = API.makeAPI = function (_API, extra) {
 		var API = new EVENTS();
 		for (var name in extra) {
@@ -22,19 +21,9 @@ exports.main = function (API) {
 		return API;
 	}
 
-
-	const FBTRACE_API = makeAPI(API, {
-		name: "fbtrace"
-	});
-	const FBTRACE_EXPORTS = require("./adapters/fbtrace").for(FBTRACE_API);
-	//FBTRACE_EXPORTS.console.log("CALLED MAIN IN ADAPTER 4444!");
-	//FBTRACE_API.emit("log", "CALLED MAIN IN ADAPTER 5555!");
-
-	API.console = FBTRACE_EXPORTS.console;
 	var console = makeAPI(API, {
 		name: "main"
 	}).console;
-
 
 	console.log("Init components ...");
 
@@ -49,18 +38,18 @@ exports.main = function (API) {
 
 		if (API.inDevMode()) {
 
-			const MONITORS_BUNDLE_SERVER_API = makeAPI(API, {
-				name: "monitors/bundle-server"
-			});
-			const MONITORS_BUNDLE_SERVER_EXPORTS = require("./monitors/bundle-server").for(MONITORS_BUNDLE_SERVER_API);
-
-			MONITORS_BUNDLE_SERVER_API.once("restarted", function () {
-				ADDON_EXPORTS.reload();
-			});
 
 		}
 
 
+
+		const UI_DEVTOOLS_EXTENSION_API = makeAPI(API, {
+			name: "ui/devtools-extension"
+		});
+		const UI_DEVTOOLS_EXTENSION_EXPORTS = require("./ui/devtools-extension").for(UI_DEVTOOLS_EXTENSION_API);
+
+//UI_DEVTOOLS_EXTENSION_EXPORTS.initialize(options);
+//UI_DEVTOOLS_EXTENSION_EXPORTS.shutdown(reason);
 
 		const UI_DEVTOOLS_PANEL_API = makeAPI(API, {
 			name: "ui/devtools-panel"
@@ -75,7 +64,6 @@ exports.main = function (API) {
 		const FIREBUG_EXPORTS = require("./adapters/firebug").for(FIREBUG_API);
 
 
-
 		const RECEIVERS_API = makeAPI(API, {
 			name: "receivers/_boot"
 		});
@@ -88,16 +76,40 @@ exports.main = function (API) {
 		const RECEIVERS_EXPORTS = require("./receivers/_boot").for(RECEIVERS_API);
 
 
-//API.TABS.open("http://localhost:49084/");
-API.TABS.open("http://firephp.org/");
+/*
+GDEVTOOLS.on("webconsole-init", onConsoleInit);
+// Console panel customization.
+function onConsoleInit(eventId, toolbox, panelFrame) {
+  // Use the toolbox object and wait till the Console panel
+  // is fully ready (panel frame loaded).
+  toolbox.once("webconsole-ready", (eventId, panel) => {
+    panel.hud.ui.on("new-messages", onNewMessages);
+  });
+}
+function onNewMessages(topic, messages) {
+  messages.forEach(msg => {
+    onNewMessage(msg);
+  });
+}
+function onNewMessage(msg) {
+  // Get DOM node associated with the message
+  let node = msg.node;
+  let category = node.getAttribute("category");
 
-
+  // If category of the node is 'console' change the background.
+  if (category == "console") {
+    msg.node.setAttribute("style", "background-color: green");
+  }
+}
+*/
 
 	} catch (err) {
-		console.error(err.stack);
+		console.error("ERROR: " + err.message, err.stack);
 		throw err;
 	}
 
 	console.log("... init components done!");
+
+	return {};
 }
 

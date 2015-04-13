@@ -1,2 +1,6 @@
+/.DS_Store
 /.rt/
 /.pub/
+/.pinf/
+/node_modules/
+/program.rt.json

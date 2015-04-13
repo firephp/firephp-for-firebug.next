@@ -1,9 +1,15 @@
 {
     "name": "firephp-for-firebug.next-components",
+    "uid": "github.com/firephp/firephp-for-firebug.next/components",
     "main": "./main.js",
     "exports": {
         "bundles": {
             "main.js": "./main.js"
+        }
+    },
+    "layout": {
+        "directories": {
+            "bundles": "./.pinf.program"
         }
     },
     "imports": {
@@ -14,26 +20,20 @@
     "upstream": {
         "packages": {
             "top": [
-                "../../../../_upstream/os-inception/*",
-                "../../../lib/*",
+                "/genesis/os.inception/services/*/*",
                 "/opt/services/*"
             ]
         }
     },
     "mappings": {
-        "firebug.sdk": "top/firebug.sdk",
         "wildfire-for-js": "top/wildfire-for-js"
     },
     "dependencies": {
-        "eventemitter2": "~0.4.14"
-    },
-    "directories": {
-        "bundles": "../client/data/bundles/components"
+        "eventemitter2": "~0.4.14",
+        "firebug.sdk": "0.5.x"
     },
     "scripts": {
-        "install": "../node_modules/.bin/smi install -vd",
-        "bundle": "rm -Rf .rt ; ../node_modules/to.pinf.lib/bin/pinf-bundle ; ../node_modules/pinf-to-browser/bin/pinf-publish",
-        "run": "../node_modules/pinf-to-browser/bin/pinf-run"
+        "install": "../node_modules/.bin/smi install -vd"
     },
     "config": {
         "smi.cli": {

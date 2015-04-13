@@ -1,4 +1,5 @@
-.pio.cache/
-npm-debug.log
-node_modules/
-/server/.pub/
+/components/
+/node_modules/
+/boot
+/.pgs/
+/.packages
