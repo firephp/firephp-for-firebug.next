@@ -1,52 +1,41 @@
 {
+    "boot": {
+        "config": "firephp-for-firebug.next/0"
+    },
     "config": {
-        "genesis.pinf.org/0": {
-            "TMP___programs": {
-                "components": {
-                    "location": "./components/program.json",
-                    "config": {
-                        "genesis.pinf.org/0": {
-                            "for": "github.com/firephp/firephp-for-firebug.next/components"
-                        }
-                    }
-                }
+        "firephp-for-firebug.next/0": {
+            "$to": "firephp-for-firebug.next",
+            "run": {
+                "homepage": "{{$from.browser.homepage}}"
             }
         },
-        "TMP__github.com/pinf-to/pinf-to-mozilla-addon/0": {
-            "config": {
-                "mainComponentUrl": "http://{{$from.pgs.programs.components.getRuntimeConfigFor(boot).run.mainComponentUrl}}"
+        "genesis.pinf.org/0": {
+            "programs": {
+                "components": "{{__DIRNAME__}}/components/program.json"
             }
-        }
-    },
-    "___TMP___github.com/pinf-to/to.pinf.lib/0": {
-        "programs": {
-            "components": {
-                "path": "./components/program.json",
-                "env": {
-                    "PORT": 8080
-                },
-                "routes": {
-                    "alive": {
-                        "uri": "/",
-                        "expect": {
-                            "statusCode": 200
-                        }
-                    }
-                }
+        },
+        "github.com/pinf-to/pinf-to-mozilla-addon/0": {
+            "$to": "addon",
+            "id": "{{$from.pgs.uid}}@{{$from.pgs.basename}}",
+            "name": "{{$from.pgs.basename}}",
+            "config": {
+                "label": "{{$from.pgs.basename}}",
+                "rootVortexUrl": "{{$from.pgs.programs.components.getRuntimeConfigFor(boot).run.rootVortexUrl}}"
+            }
+        },
+        "github.com/pinf-to/pinf-to-mozilla-firefox-profile/0": {
+            "$to": "browser",
+            "browserVersion": "40.0a1",
+            "browserRelease": "nightly",
+            "homepage": "http://firephp.org",
+            "extensions": {
+                "firebug@software.joehewitt.com": "https://getfirebug.com/releases/firebug/3.0/firebug-3.0.0-alpha.9.xpi",
+                "fbtrace@getfirebug.com": "https://getfirebug.com/releases/fbtrace/3.0/fbtrace-3.0b1.xpi",
+                "{{$from.pgs.uid}}@{{$from.pgs.basename}}": "{{$from.addon.path}}"
             },
-            "server": {
-                "path": "./server/program.json",
-                "env": {
-                    "PORT": 49084
-                },
-                "routes": {
-                    "alive": {
-                        "uri": "/",
-                        "expect": {
-                            "statusCode": 200
-                        }
-                    }
-                }
+            "preferences": {
+                "extensions.firebug.alwaysOpenTraceConsole": true,
+                "extensions.firebug.DBG_PGS/HOIST": true
             }
         }
     }

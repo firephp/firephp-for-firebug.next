@@ -1,20 +1,25 @@
 {
     "name": "firephp-for-firebug.next-components",
 	"boot": {
-		"package": "./package.json"
+		"package": "./package.json",
+		"config": "github.com/firephp/firephp-for-firebug.next/components/0"
 	},
 	"config": {
 		"github.com/firephp/firephp-for-firebug.next/components/0": {
 			"$to": "boot",
 			"run": {
-				"mainComponentUrl": "http://{{$from.server.bind}}:{{$from.server.port}}/bundles/main.js"
+				"rootVortexUrl": "http://{{$from.server.bind}}:{{$from.server.port}}/bundles/main.js"
 			}
 		},
 		"github.com/pinf-it/pinf-it-bundler/0": {
-			"target": "browser"
+			"$to": "bundles",
+			"target": "browser",
+			"sourceHash": "{{$from.filetree.hash}}",
+			"sourcePath": "{{__DIRNAME__}}"
 		},
 		"github.com/pinf-it/pinf-it-filetree-insight/0": {
 			"$to": "filetree",
+			"path": "{{__DIRNAME__}}",
 			"watch": true
 		},		
 		"github.com/pinf-to/pinf-to-pio/0": {
@@ -27,6 +32,7 @@
 			"$to": "server",
 			"bind": "127.0.0.1",
 			"port": "{{$from.network.ports.default}}",
+			"bundlesBasePath": "{{$from.bundles.bundlePath}}",
 			"config": {
 				"sourceHashFile": "{{$from.filetree.hashFile}}"
 			}
