@@ -12,7 +12,7 @@
         "genesis.pinf.org/0": {
             "programs": {
                 "components": "{{__DIRNAME__}}/components/program.json",
-                "server": "{{__DIRNAME__}}/server/program.json",
+                "server": "{{__DIRNAME__}}/server/program.json"
             }
         },
         "github.com/pinf-to/pinf-to-mozilla-addon/0": {

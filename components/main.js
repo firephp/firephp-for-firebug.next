@@ -57,6 +57,13 @@ exports.main = function (API) {
 		const UI_DEVTOOLS_PANEL_EXPORTS = require("./ui/devtools-panel").for(UI_DEVTOOLS_PANEL_API);
 
 
+		const UI_DEVTOOLS_CONSOLES_API = makeAPI(API, {
+			name: "adapters/devtools-consoles"
+		});
+		const UI_DEVTOOLS_CONSOLES_EXPORTS = require("./adapters/devtools-consoles").for(UI_DEVTOOLS_CONSOLES_API);
+
+
+
 
 		const FIREBUG_API = makeAPI(API, {
 			name: "adapters/firebug"
