@@ -8,7 +8,8 @@
 		"github.com/firephp/firephp-for-firebug.next/components/0": {
 			"$to": "boot",
 			"run": {
-				"rootVortexUrl": "http://{{$from.server.bind}}:{{$from.server.port}}/bundles/main.js"
+				"rootVortexUrl": "http://{{$from.server.bind}}:{{$from.server.port}}/bundles/main.js",
+				"bundlesBasePath": "{{$from.server.bundlesBasePath}}"
 			}
 		},
 		"github.com/pinf-it/pinf-it-bundler/0": {

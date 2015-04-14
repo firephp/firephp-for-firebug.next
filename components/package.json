@@ -5,6 +5,9 @@
     "exports": {
         "bundles": {
             "main.js": "./main.js"
+        },
+        "resources": {
+            "data/*": "./data/*"
         }
     },
     "layout": {

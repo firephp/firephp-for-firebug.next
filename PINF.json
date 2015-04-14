@@ -19,6 +19,7 @@
             "$to": "addon",
             "id": "firephp-for-firebug.next@firephp.org",
             "name": "{{$from.pgs.basename}}",
+            "bundlesBasePath": "{{$from.pgs.programs.components.getRuntimeConfigFor(boot).run.bundlesBasePath}}",
             "config": {
                 "label": "{{$from.pgs.basename}}",
                 "rootVortexUrl": "{{$from.pgs.programs.components.getRuntimeConfigFor(boot).run.rootVortexUrl}}"

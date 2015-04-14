@@ -5,96 +5,124 @@ exports.for = function (API) {
 
 	API.console.log("init devtools-consoles");
 
-	
-	const TABS = require("sdk/tabs");
-
-	API.console.log("TABS.activeTab: " + TABS.activeTab, TABS.activeTab);
-	API.console.log("TABS.activeTab.linkedBrowser: " + TABS.activeTab.linkedBrowser, TABS.activeTab.linkedBrowser);
-
-console.log("YES!");
 
 	const {gDevTools} = API.CU.import("resource:///modules/devtools/gDevTools.jsm", {});
 	const {devtools} = API.CU.import("resource://gre/modules/devtools/Loader.jsm", {});
+	const TABS = require("sdk/tabs");
+	const {Messages, Widgets} = devtools.require("devtools/webconsole/console-output");
+	const Heritage = require("sdk/core/heritage");
 
 
-	function getWebConsole(tab) {
-	  // |tab| is the XUL tab for the page you want.
-	  let target = devtools.TargetFactory.forTab(tab);
-	  let toolbox = gDevTools.getToolbox(target);
-	  let panel = toolbox ? toolbox.getPanel("webconsole") : null;
-	  return panel ? panel.hud : null;
+	function getSelectedTab () {
+		var wm = API.CC["@mozilla.org/appshell/window-mediator;1"].getService(API.CI.nsIWindowMediator);
+		var tabbrowser = wm.getEnumerator('navigator:browser').getNext().gBrowser;
+		return tabbrowser.selectedTab;
+	}
+
+	function getWebConsole (tab) {
+		// |tab| is the XUL tab for the page you want.
+		let target = devtools.TargetFactory.forTab(tab);
+		let toolbox = gDevTools.getToolbox(target);
+		let panel = toolbox ? toolbox.getPanel("webconsole") : null;
+		return panel ? panel.hud : null;
 	}
 
 
-	// Get the Messages object which holds the main classes of Messages
-	// used by the Web Console.
-	const {Messages} = devtools.require("devtools/webconsole/console-output");
+	// Simple Message
 
-	// Create the simplest message we can.
-	let msg1 = new Messages.Simple("hello world from devtools-console", {
-	  category: "js",
-	  severity: "error",
-	});
+	function makeSimpleMessage () {
+		return new Messages.Simple("hello world from devtools-console: " + Date.now(), {
+		  category: "js",
+		  severity: "error"
+		});
+	}
 
-	// Add it to the output.
+	function makeNewMessageTypeMessage () {
+		Messages.RandomPrefix = function(msg) {
+		  this._onClick = this._onClick.bind(this);
 
-	var wm = API.CC["@mozilla.org/appshell/window-mediator;1"].getService(API.CI.nsIWindowMediator);
-	var tabbrowser = wm.getEnumerator('navigator:browser').getNext().gBrowser;
-	API.console.log("tabbrowser.selectedTab: " + tabbrowser.selectedTab);
-
-
-	let hud = getWebConsole(tabbrowser.selectedTab);
-	hud.ui.output.addMessage(msg1);
-
-
-
-
-	// Get HUDService - the Web/Browser Consoles manager.
-	const hudservice = devtools.require("devtools/webconsole/hudservice");
-
-	// Get the Browser Console - there can only be one.
-	// This method returns null if the Browser Console is not open.
-	let browserConsole = hudservice.getBrowserConsole();
-
-	// Add a message.
-	browserConsole.ui.output.addMessage(msg1);
+		  let prefix = this._getPrefix();
+		  Messages.Simple.call(this, prefix + msg, {
+		    linkCallback: this._onClick,
+		    category: "webdev",
+			severity: "log"
+		  });
+		};
 
 
+		Messages.RandomPrefix.prototype = Heritage.extend(Messages.Simple.prototype,
+		{
+		  _onClick: function() {
+			/* this.element.innerHTML:
+			<span xmlns="http://www.w3.org/1999/xhtml" class="timestamp devtools-monospace">21:09:50.622 </span>
+			<span xmlns="http://www.w3.org/1999/xhtml" class="indent" style="width: 0px;"/>
+			<span xmlns="http://www.w3.org/1999/xhtml" class="icon" title="Error"/>
+			<span xmlns="http://www.w3.org/1999/xhtml" class="message-body-wrapper message-body devtools-monospace"><span>
+				<a href="#" draggable="false">[0.8859326232359753] oh la la</a>
+			</span>
+			</span>
+			*/
+		    let body = this.element.querySelector(".message-body");
+		    let newPrefix = this._getPrefix();
+		    body.textContent = body.textContent.replace(/^\[[\d.]+\]/, newPrefix);
+
+		    var self = this;
+		    body.addEventListener("click", function (event) {
+
+		    	self._onClick();
+
+console.log("CLICKED AFTER!!");
+
+		    }, false);
+		  },
+
+		  _getPrefix: function() {
+		    return "[" + Math.random() + "] ";
+		  },
+		});
+
+		// Later you can use this message class.
+		return new Messages.RandomPrefix("oh la la");
+	}
 
 
-const Heritage = require("sdk/core/heritage");
+	function logSet () {
 
-console.log("Heritage: " + typeof Heritage);
+		let hud = getWebConsole(getSelectedTab());
+		// Get HUDService - the Web/Browser Consoles manager.
+		const hudservice = devtools.require("devtools/webconsole/hudservice");
+		// Get the Browser Console - there can only be one.
+		// This method returns null if the Browser Console is not open.
+		let browserConsole = hudservice.getBrowserConsole();
 
-Messages.RandomPrefix = function(msg) {
-  this._onClick = this._onClick.bind(this);
 
-  let prefix = this._getPrefix();
-  Messages.Simple.call(this, prefix + msg, {
-    linkCallback: this._onClick,
-  });
-};
+		if (hud) {
+			console.log("Logging to Web Console");
+			hud.ui.output.addMessage(makeSimpleMessage());
+			hud.ui.output.addMessage(makeNewMessageTypeMessage());
+		} else {
+			console.log("Web Console not open");
+		}
 
-Messages.RandomPrefix.prototype = Heritage.extend(Messages.Simple.prototype,
-{
-  _onClick: function() {
-    let body = this.element.querySelector(".body");
-    let newPrefix = this._getPrefix();
-    body.textContent = body.textContent.replace(/^\[[\d.]+\]/, newPrefix);
-  },
+		if (browserConsole) {
+			console.log("Logging to Browser Console");
+			browserConsole.ui.output.addMessage(makeSimpleMessage());
+			browserConsole.ui.output.addMessage(makeNewMessageTypeMessage());
+		} else {
+			console.log("Browser Console not open");
+		}
+	}
 
-  _getPrefix: function() {
-    return "[" + Math.random() + "] ";
-  },
-});
+	require("sdk/timers").setInterval(function () {
 
-// Later you can use this message class.
-let msg4 = new Messages.RandomPrefix("oh la la");
-hud.ui.output.addMessage(msg4);
-browserConsole.ui.output.addMessage(msg4);
+		console.log("Log set");
 
-console.log("LOGGED OLALA");
+		logSet();
 
+	}, 3 * 1000);
+
+
+/*
 
 
 
@@ -133,7 +161,7 @@ console.log("LOGGED OLALA");
 	hud.ui.output.addMessage(msg2);
 	browserConsole.ui.output.addMessage(msg2);
 
-
+*/
 
 	API.console.log("init devtools-consoles DONE");
 
