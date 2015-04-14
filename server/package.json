@@ -1,4 +1,5 @@
 {
+    "uid": "github.com/firephp/firephp-for-firebug.next/server",
 	"name": "firephp-for-firebug.next-server",
     "upstream": {
 	    "packages": {
