@@ -14,7 +14,9 @@
     },
     "imports": {
         "globals": {
-            "Components": true
+            "Components": true,
+            "console": true,
+            "insight": true
         }
     },
     "upstream": {
