@@ -1,3 +1,7 @@
+**DEPRECATED: For new Firefox Web Extension see https://github.com/firephp/firephp-for-firefox-devtools**
+
+---
+
 FirePHP for Firebug.Next
 ========================
 
